@@ -1,12 +1,12 @@
-using System.Threading.Tasks;
-using HousingManagementSystemApi.Gateways;
-using Moq;
-using HousingManagementSystemApi.UseCases;
-using Xunit;
-using HACT.Dtos;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using FluentAssertions;
+using HACT.Dtos;
+using HousingManagementSystemApi.Gateways;
+using HousingManagementSystemApi.UseCases;
+using Moq;
+using Xunit;
 namespace HousingManagementSystemApi.Tests
 {
 
@@ -27,14 +27,14 @@ namespace HousingManagementSystemApi.Tests
             const string TestPostcode = "postcode";
             retrieveAddressesGateway.Setup(x => x.SearchByPostcode(TestPostcode));
             await retrieveAddressesUseCase.Execute(TestPostcode);
-            retrieveAddressesGateway.Verify(x=> x.SearchByPostcode(TestPostcode), Times.Once);
+            retrieveAddressesGateway.Verify(x => x.SearchByPostcode(TestPostcode), Times.Once);
         }
         [Fact]
         public async Task GivenAPostcode_WhenAnAddressExists_GatewayReturnsCorrectData()
         {
             const string TestPostcode = "postcode";
             retrieveAddressesGateway.Setup(x => x.SearchByPostcode(TestPostcode))
-                .ReturnsAsync(new PropertyAddress[]{ new(){PostalCode = TestPostcode}});
+                .ReturnsAsync(new PropertyAddress[] { new() { PostalCode = TestPostcode } });
             var result = await retrieveAddressesUseCase.Execute(TestPostcode);
             result.First().PostalCode.Should().Be(TestPostcode);
         }
@@ -42,7 +42,7 @@ namespace HousingManagementSystemApi.Tests
         [Fact]
         public async void GivenNullPostcode_WhenExecute_ThrowsNullException()
         {
-            Func<Task> act = async() => await retrieveAddressesUseCase.Execute(null);
+            Func<Task> act = async () => await retrieveAddressesUseCase.Execute(null);
             await act.Should().ThrowAsync<ArgumentNullException>();
         }
 

@@ -1,17 +1,17 @@
-using Xunit;
-using System.Threading.Tasks;
-using FluentAssertions;
-using HousingManagementSystemApi.Controllers;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using FluentAssertions;
 using HACT.Dtos;
-using Moq;
+using HousingManagementSystemApi.Controllers;
 using HousingManagementSystemApi.UseCases;
+using Moq;
+using Xunit;
 
 namespace HousingManagementSystemApi.Tests
 {
 
-    public class AddressControllerTests: ControllerTests
+    public class AddressControllerTests : ControllerTests
     {
         private readonly AddressController systemUnderTest;
         private readonly Mock<IRetrieveAddressesUseCase> retrieveAddressesUseCaseMock;
@@ -19,7 +19,7 @@ namespace HousingManagementSystemApi.Tests
         public AddressControllerTests()
         {
             postcode = "postcode";
-            var dummyList = new List<PropertyAddress>{ new() { PostalCode = this.postcode }};
+            var dummyList = new List<PropertyAddress> { new() { PostalCode = this.postcode } };
             retrieveAddressesUseCaseMock = new Mock<IRetrieveAddressesUseCase>();
             retrieveAddressesUseCaseMock
                 .Setup(x => x.Execute(this.postcode))
@@ -31,7 +31,7 @@ namespace HousingManagementSystemApi.Tests
         {
 
             var result = await systemUnderTest.Address(this.postcode);
-            retrieveAddressesUseCaseMock.Verify(x=> x.Execute(this.postcode), Times.Once);
+            retrieveAddressesUseCaseMock.Verify(x => x.Execute(this.postcode), Times.Once);
             GetStatusCode(result).Should().Be(200);
         }
         [Fact]

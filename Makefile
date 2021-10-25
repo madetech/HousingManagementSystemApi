@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	dotnet build HousingRepairsOnlineApi
+	dotnet build HousingManagementSystemApi
 
 .PHONY: test
 test:
@@ -12,5 +12,5 @@ lint:
 	./local-tools/dotnet-format/dotnet-format
 
 .PHONY: run
-run:
-	dotnet run --project HousingRepairsOnlineApi
+run: build
+	source ./.env && dotnet run --project HousingManagementSystemApi

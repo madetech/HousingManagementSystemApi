@@ -14,6 +14,10 @@ using Microsoft.OpenApi.Models;
 
 namespace HousingManagementSystemApi
 {
+    using System.Net.Http;
+    using Gateways;
+    using UseCases;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -26,8 +30,13 @@ namespace HousingManagementSystemApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
+            services.AddTransient<IRetrieveAddressesUseCase, RetrieveAddressesUseCase>();
+            var addressesApiUrl = Environment.GetEnvironmentVariable("ADDRESSES_API_URL");
+            var addressApiKey = Environment.GetEnvironmentVariable("ADDRESSES_API_KEY");
+            services.AddHttpClient();
+            services.AddTransient<IAddressesGateway, AddressesGateway>(s => new AddressesGateway(
+                s.GetService<HttpClient>(), addressesApiUrl, addressApiKey));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HousingManagementSystemApi", Version = "v1" });

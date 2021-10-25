@@ -21,6 +21,7 @@ namespace HousingManagementSystemApi.Tests
             retrieveAddressesUseCase = new RetrieveAddressesUseCase(retrieveAddressesGateway.Object);
 
         }
+
         [Fact]
         public async Task GivenAPostcode_WhenExecute_GatewayReceivesCorrectInput()
         {
@@ -29,6 +30,7 @@ namespace HousingManagementSystemApi.Tests
             await retrieveAddressesUseCase.Execute(TestPostcode);
             retrieveAddressesGateway.Verify(x => x.SearchByPostcode(TestPostcode), Times.Once);
         }
+
         [Fact]
         public async Task GivenAPostcode_WhenAnAddressExists_GatewayReturnsCorrectData()
         {
@@ -47,7 +49,7 @@ namespace HousingManagementSystemApi.Tests
         }
 
         [Fact]
-        public async void DoesNotCallAddressGatewayWhenPostcodeIsEmpty()
+        public async void GivenEmptyPostcode_WhenExecute_SearchByPostcodeIsNotCalled()
         {
             const string TestPostcode = "";
             await retrieveAddressesUseCase.Execute(postcode: TestPostcode);

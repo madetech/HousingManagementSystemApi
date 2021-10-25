@@ -4,6 +4,6 @@ namespace HousingManagementSystemApi.Tests.GatewaysTests
 
     public class RetrieveAddressesGatewaysTests
     {
-
+        //TODO: Add tests once UH integration is implemented in the gateways
     }
 }

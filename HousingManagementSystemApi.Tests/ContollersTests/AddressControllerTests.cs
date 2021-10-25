@@ -26,6 +26,7 @@ namespace HousingManagementSystemApi.Tests
                 .ReturnsAsync(dummyList);
             systemUnderTest = new AddressesController(retrieveAddressesUseCaseMock.Object);
         }
+
         [Fact]
         public async Task GivenAPostcode_WhenAValidAddressRequestIsMade_ItReturnsASuccessfullResponse()
         {
@@ -34,6 +35,7 @@ namespace HousingManagementSystemApi.Tests
             retrieveAddressesUseCaseMock.Verify(x => x.Execute(this.postcode), Times.Once);
             GetStatusCode(result).Should().Be(200);
         }
+
         [Fact]
         public async Task GivenAPostcode_WhenAValidAddressRequestIsMade_ItReturnsCorrectData()
         {

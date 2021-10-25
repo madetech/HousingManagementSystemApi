@@ -6,11 +6,11 @@ namespace HousingManagementSystemApi.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    public class AddressController : ControllerBase
+    public class AddressesController : ControllerBase
     {
         private readonly IRetrieveAddressesUseCase retrieveAddressesUseCase;
 
-        public AddressController(IRetrieveAddressesUseCase retrieveAddressesUseCase)
+        public AddressesController(IRetrieveAddressesUseCase retrieveAddressesUseCase)
         {
             this.retrieveAddressesUseCase = retrieveAddressesUseCase;
         }

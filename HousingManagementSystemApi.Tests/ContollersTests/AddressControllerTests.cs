@@ -13,7 +13,7 @@ namespace HousingManagementSystemApi.Tests
 
     public class AddressControllerTests : ControllerTests
     {
-        private readonly AddressController systemUnderTest;
+        private readonly AddressesController systemUnderTest;
         private readonly Mock<IRetrieveAddressesUseCase> retrieveAddressesUseCaseMock;
         private readonly string postcode;
         public AddressControllerTests()
@@ -24,7 +24,7 @@ namespace HousingManagementSystemApi.Tests
             retrieveAddressesUseCaseMock
                 .Setup(x => x.Execute(this.postcode))
                 .ReturnsAsync(dummyList);
-            systemUnderTest = new AddressController(retrieveAddressesUseCaseMock.Object);
+            systemUnderTest = new AddressesController(retrieveAddressesUseCaseMock.Object);
         }
         [Fact]
         public async Task GivenAPostcode_WhenAValidAddressRequestIsMade_ItReturnsASuccessfullResponse()

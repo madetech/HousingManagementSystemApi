@@ -454,4 +454,4 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 ## Local tools
-./local-tools/
+local-tools/

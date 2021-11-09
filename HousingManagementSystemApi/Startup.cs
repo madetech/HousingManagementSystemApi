@@ -16,10 +16,13 @@ namespace HousingManagementSystemApi
 {
     using System.Net.Http;
     using Gateways;
+    using HousingRepairsOnline.Authentication.DependencyInjection;
     using UseCases;
 
     public class Startup
     {
+        private const string HousingManagementSystemApiIssuerId = "Housing Management System Api";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,6 +33,8 @@ namespace HousingManagementSystemApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHousingRepairsOnlineAuthentication(HousingManagementSystemApiIssuerId);
+
             services.AddControllers();
             services.AddTransient<IRetrieveAddressesUseCase, RetrieveAddressesUseCase>();
             var addressesApiUrl = Environment.GetEnvironmentVariable("ADDRESSES_API_URL");
@@ -57,11 +62,12 @@ namespace HousingManagementSystemApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireAuthorization();
             });
         }
     }

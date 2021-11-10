@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using HACT.Dtos;
 namespace HousingManagementSystemApi.Gateways
 {
-    public class AddressesGateway : IAddressesGateway
+    public class AddressesHttpGateway : IAddressesGateway
     {
         private readonly HttpClient httpClient;
         private readonly string addressesApiUrl;
         private readonly string addressesApiKey;
 
-        public AddressesGateway(HttpClient httpClient, string addressesApiUrl, string addressesApiKey)
+        public AddressesHttpGateway(HttpClient httpClient, string addressesApiUrl, string addressesApiKey)
         {
             this.httpClient = httpClient;
             this.addressesApiUrl = addressesApiUrl;

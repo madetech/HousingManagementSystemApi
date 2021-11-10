@@ -40,7 +40,7 @@ namespace HousingManagementSystemApi
             var addressesApiUrl = Environment.GetEnvironmentVariable("ADDRESSES_API_URL");
             var addressApiKey = Environment.GetEnvironmentVariable("ADDRESSES_API_KEY");
             services.AddHttpClient();
-            services.AddTransient<IAddressesGateway, AddressesGateway>(s => new AddressesGateway(
+            services.AddTransient<IAddressesGateway, AddressesHttpGateway>(s => new AddressesHttpGateway(
                 s.GetService<HttpClient>(), addressesApiUrl, addressApiKey));
             services.AddSwaggerGen(c =>
             {

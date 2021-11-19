@@ -43,7 +43,7 @@ namespace HousingManagementSystemApi.Repositories
                     ON r.prop_type = ptype.lu_ref
                 WHERE level_code in ('2')
                 AND eot = '1900-01-01 00:00:00'
-                AND (post_code like '%{postcode}%' OR REPLACE(post_code, ' ','') like '%{postcode}%')
+                AND (UPPER(REPLACE(post_code, ' ','')) like UPPER(REPLACE('%{postcode}%', ' ','')))
             ";
 
             var result = Enumerable.Empty<PropertyAddress>();

@@ -6,13 +6,20 @@ namespace HousingManagementSystemApi.Models
     {
         public static PropertyAddress ToHactPropertyAddress(this UniversalHousingAddress universalHousingAddress)
         {
+            var propertyReference = universalHousingAddress.PropertyReference == null
+                ? null
+                : new Reference
+                {
+                    ID = universalHousingAddress.PropertyReference,
+                    AllocatedBy = "Universal Housing",
+                };
+
             var result = new PropertyAddress
             {
                 AddressLine = string.IsNullOrWhiteSpace(universalHousingAddress.ShortAddress) ? null : new[] { universalHousingAddress.ShortAddress },
                 PostalCode = universalHousingAddress.PostCode,
                 BuildingNumber = universalHousingAddress.PostDesig,
-                //??? = universalHousingAddress.PropertyReference,
-                //??? = universalHousingAddress.Uprn
+                Reference = propertyReference
             };
 
             return result;

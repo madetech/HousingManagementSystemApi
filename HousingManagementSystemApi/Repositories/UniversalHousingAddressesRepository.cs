@@ -26,7 +26,7 @@ namespace HousingManagementSystemApi.Repositories
         {
             Guard.Against.NullOrWhiteSpace(postcode, nameof(postcode));
 
-            var sql = @$"SELECT pr.prop_ref AS PropertyReference
+            var sql = @$"SELECT RTRIM(pr.prop_ref) AS PropertyReference
                 ,pr.u_nlpguprn AS Uprn
                 ,RTRIM(pr.post_desig) AS PostDesig
                 ,RTRIM(REPLACE(pr.short_address,rtrim(pr.post_desig),'')) AS ShortAddress

@@ -9,7 +9,7 @@ using HousingManagementSystemApi.UseCases;
 using Moq;
 using Xunit;
 
-namespace HousingManagementSystemApi.Tests
+namespace HousingManagementSystemApi.Tests.ContollersTests
 {
 
     public class AddressControllerTests : ControllerTests

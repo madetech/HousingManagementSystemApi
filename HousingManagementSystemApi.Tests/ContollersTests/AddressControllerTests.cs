@@ -20,17 +20,23 @@ namespace HousingManagementSystemApi.Tests
         public AddressControllerTests()
         {
             postcode = "postcode";
-            var dummyList = new List<PropertyAddress> { new() { PostalCode = this.postcode } };
+
             retrieveAddressesUseCaseMock = new Mock<IRetrieveAddressesUseCase>();
+            systemUnderTest = new AddressesController(retrieveAddressesUseCaseMock.Object);
+        }
+
+        private void SetupDummyAddresses()
+        {
+            var dummyList = new List<PropertyAddress> { new() { PostalCode = this.postcode } };
             retrieveAddressesUseCaseMock
                 .Setup(x => x.Execute(this.postcode))
                 .ReturnsAsync(dummyList);
-            systemUnderTest = new AddressesController(retrieveAddressesUseCaseMock.Object);
         }
 
         [Fact]
         public async Task GivenAPostcode_WhenAValidAddressRequestIsMade_ItReturnsASuccessfullResponse()
         {
+            SetupDummyAddresses();
 
             var result = await systemUnderTest.Address(this.postcode);
             retrieveAddressesUseCaseMock.Verify(x => x.Execute(this.postcode), Times.Once);
@@ -40,6 +46,7 @@ namespace HousingManagementSystemApi.Tests
         [Fact]
         public async Task GivenAPostcode_WhenAValidAddressRequestIsMade_ItReturnsCorrectData()
         {
+            SetupDummyAddresses();
 
             var result = await systemUnderTest.Address(postcode);
             GetResultData<List<PropertyAddress>>(result).First().PostalCode.Should().Be(this.postcode);
@@ -49,10 +56,8 @@ namespace HousingManagementSystemApi.Tests
         public async Task GivenAnExceptionIsThrown_WhenRequestMadeForAddresses_ResponseHttpStatusCodeIs500()
         {
             // Arrange
-            var retrieveAddressesUseCaseMock = new Mock<IRetrieveAddressesUseCase>();
             retrieveAddressesUseCaseMock.Setup(x => x.Execute(It.IsAny<string>()))
                 .Throws<Exception>();
-            var systemUnderTest = new AddressesController(retrieveAddressesUseCaseMock.Object);
 
             // Act
             var result = await systemUnderTest.Address(postcode);
@@ -64,11 +69,9 @@ namespace HousingManagementSystemApi.Tests
         public async Task GivenAnExceptionIsThrown_WhenRequestMadeForAddresses_ResponseHttpStatusMessageIsExceptionMessage()
         {
             // Arrange
-            var retrieveAddressesUseCaseMock = new Mock<IRetrieveAddressesUseCase>();
             const string errorMessage = "An error message";
             retrieveAddressesUseCaseMock.Setup(x => x.Execute(It.IsAny<string>()))
                 .Throws(new Exception(errorMessage));
-            var systemUnderTest = new AddressesController(retrieveAddressesUseCaseMock.Object);
 
             // Act
             var result = await systemUnderTest.Address(postcode);

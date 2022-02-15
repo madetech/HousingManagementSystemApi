@@ -44,6 +44,8 @@ namespace HousingManagementSystemApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HousingManagementSystemApi", Version = "v1" });
             });
+
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +69,7 @@ namespace HousingManagementSystemApi
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers().RequireAuthorization();
             });
         }

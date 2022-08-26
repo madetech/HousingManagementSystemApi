@@ -59,11 +59,9 @@ namespace HousingManagementSystemApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HousingManagementSystemApi v1"));
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseSentryTracing();
 
             app.UseAuthentication();
             app.UseAuthorization();

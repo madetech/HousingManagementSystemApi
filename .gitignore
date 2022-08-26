@@ -455,3 +455,5 @@ $RECYCLE.BIN/
 
 ## Local tools
 local-tools/
+
+.env

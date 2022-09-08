@@ -40,6 +40,7 @@ namespace HousingManagementSystemApi.Gateways
                    Country = CountryCode.AD,
                    Reference = new Reference()
                    {
+                       ID = "1",
                        AllocatedBy = "X",
                        Description = "Y"
                    },

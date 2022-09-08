@@ -31,7 +31,7 @@ exec: true # Enable running commands in your container.
 #  GITHUB_TOKEN: GITHUB_TOKEN  # The key is the name of the environment variable, the value is the name of the SSM parameter.
 
 environments:
-  preproduction:
+  development:
     variables:
       AUTHENTICATION_IDENTIFIER: FOO
       JWT_SECRET: FOO

@@ -41,3 +41,5 @@ environments:
         security_groups:
           deny_default: false
           groups: [sg-02c845b61c1cb0381]
+  # production:
+  #   exec: false
